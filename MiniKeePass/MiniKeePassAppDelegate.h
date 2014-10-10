@@ -29,11 +29,10 @@
 + (NSString *)documentsDirectory;
 
 - (void)closeDatabase;
+- (void)deleteKeychainData;
 - (void)deleteAllData;
 
 - (void)showSettingsView;
 - (void)dismissSettingsView;
-
-+ (MiniKeePassAppDelegate *)appDelegate;
 
 @end

@@ -270,8 +270,10 @@
 }
 
 - (void)autotypeString:(NSString *)string {
-    // Escape single quotes
-    NSString *escapedString = [string stringByReplacingOccurrencesOfString:@"\'" withString:@"\\'"];
+    // Escape backslashes & single quotes
+    NSString *escapedString = string;
+    escapedString = [escapedString stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+    escapedString = [escapedString stringByReplacingOccurrencesOfString:@"\'" withString:@"\\'"];
 
     NSString *script = [NSString stringWithFormat:@"if (document.activeElement) { document.activeElement.value = '%@'; }", escapedString];
     [self.webView stringByEvaluatingJavaScriptFromString:script];
@@ -330,7 +332,7 @@
     }
 
     // Show the error message
-    UIAlertViewAutoDismiss *alertView = [[UIAlertViewAutoDismiss alloc] initWithTitle:@"Error"
+    UIAlertViewAutoDismiss *alertView = [[UIAlertViewAutoDismiss alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                                                               message:error.localizedDescription
                                                                              delegate:nil
                                                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
